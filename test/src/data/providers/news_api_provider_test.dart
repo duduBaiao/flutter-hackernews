@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
 import 'package:http/testing.dart';
-import 'package:news/src/data_sources/news_api_provider.dart';
+import 'package:news/src/data/providers/news_api_provider.dart';
 
 void main() {
   test('should fetch top ids', () async {
