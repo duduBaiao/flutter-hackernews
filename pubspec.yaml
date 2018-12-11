@@ -25,6 +25,8 @@ dependencies:
   sqflite: ^0.11.0
   path_provider: ^0.4.1
 
+  flutter_simple_dependency_injection: any
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
 import 'package:http/testing.dart';
-import 'package:news/src/data/providers/api_provider.dart';
+import 'package:news/src/app_framework/providers/api_provider.dart';
 
 void main() {
   MockClient createMockClient(body) {
@@ -14,11 +14,11 @@ void main() {
 
   test('should fetch top ids', () async {
     // given
-    final apiProvider = ApiProvider();
-    apiProvider.client = createMockClient([1, 2, 3, 4]);
+    final client = createMockClient([1, 2, 3, 4]);
+    final apiProvider = ApiProviderImpl(client);
 
     // when
-    final ids = await apiProvider.fetchTopIds();
+    final ids = await apiProvider.fetchTopStoriesIds();
 
     // then
     expect(ids, [1, 2, 3, 4]);
@@ -26,8 +26,8 @@ void main() {
 
   test('should fetch item', () async {
     // given
-    final apiProvider = ApiProvider();
-    apiProvider.client = createMockClient({'id': 123});
+    final client = createMockClient({'id': 123});
+    final apiProvider = ApiProviderImpl(client);
 
     // when
     final item = await apiProvider.fetchItem(123);

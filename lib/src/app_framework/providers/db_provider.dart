@@ -1,14 +1,14 @@
 import 'dart:io';
 
-import 'package:news/src/data/providers/cache_provider.dart';
-import 'package:news/src/data/providers/source_provider.dart';
+import 'package:news/src/domain/providers/db_provider.dart';
 import 'package:news/src/domain/models/item_model.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:news/src/data/mappers/item_model_mappers.dart';
 
-class DbProvider implements SourceProvider, CacheProvider {
-  DbProvider() {
+class DbProviderImpl implements DbProvider {
+  DbProviderImpl() {
     init();
   }
 
@@ -52,7 +52,7 @@ class DbProvider implements SourceProvider, CacheProvider {
     );
 
     if (results.length > 0) {
-      return ItemModel.fromRowMap(results.first);
+      return itemFromRowMap(results.first);
     }
 
     return null;
@@ -60,13 +60,11 @@ class DbProvider implements SourceProvider, CacheProvider {
 
   @override
   Future<int> addItem(ItemModel item) {
-    return database.insert('items', item.toRowMap());
+    return database.insert('items', rowMapFromItem(item));
   }
 
   @override
-  Future<List<int>> fetchTopIds() {
+  Future<List<int>> fetchTopStoriesIds() {
     return null;
   }
 }
-
-final dbProvider = DbProvider();
