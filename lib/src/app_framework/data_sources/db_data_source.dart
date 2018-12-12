@@ -1,14 +1,14 @@
 import 'dart:io';
 
-import 'package:news/src/domain/providers/db_provider.dart';
+import 'package:news/src/data/mappers/item_model_mappers.dart';
+import 'package:news/src/domain/data_sources/db_data_source.dart';
 import 'package:news/src/domain/models/item_model.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:news/src/data/mappers/item_model_mappers.dart';
 
-class DbProviderImpl implements DbProvider {
-  DbProviderImpl() {
+class DbDataSourceImpl implements DbDataSource {
+  DbDataSourceImpl() {
     init();
   }
 

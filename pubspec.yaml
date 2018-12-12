@@ -27,6 +27,8 @@ dependencies:
 
   flutter_simple_dependency_injection: any
 
+  rxdart: ^0.18.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

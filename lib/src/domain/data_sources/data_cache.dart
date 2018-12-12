@@ -1,5 +1,5 @@
 import 'package:news/src/domain/models/item_model.dart';
 
-abstract class CacheProvider {
+abstract class DataCache {
   Future<int> addItem(ItemModel item);
 }
