@@ -1,17 +1,16 @@
-import 'package:news/src/domain/repositories/news_repository.dart';
+import 'package:news/src/use_cases/stories/fetch_top_stories_ids.dart';
 import 'package:rxdart/rxdart.dart';
 
 class StoriesViewModel {
-  final NewsRepository _repository;
+  final FetchTopStoriesIds _fetchTopStoriesIds;
   final _topIds = PublishSubject<List<int>>();
 
-  StoriesViewModel(this._repository);
+  StoriesViewModel(this._fetchTopStoriesIds);
 
   Observable<List<int>> get topIds => _topIds.stream;
 
-  //TODO: Should use a "Use Case" instead of calling the repository directly
   fetchTopIds() async {
-    final ids = await _repository.fetchTopStoriesIds();
+    final ids = await _fetchTopStoriesIds.execute();
     _topIds.sink.add(ids);
   }
 

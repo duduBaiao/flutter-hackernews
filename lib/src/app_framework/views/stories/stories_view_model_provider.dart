@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_simple_dependency_injection/injector.dart';
-import 'package:news/src/domain/repositories/news_repository.dart';
+import 'package:news/src/use_cases/stories/fetch_top_stories_ids.dart';
 import 'package:news/src/view_models/stories_view_model.dart';
 
 class StoriesViewModelProvider extends InheritedWidget {
   final StoriesViewModel viewModel;
 
   StoriesViewModelProvider({Key key, Widget child})
-      : viewModel = StoriesViewModel(injectedRepository()),
+      : viewModel = StoriesViewModel(fetchTopStoriesIds()),
         super(key: key, child: child);
 
-  static NewsRepository injectedRepository() => Injector.getInjector().get<NewsRepository>();
+  static FetchTopStoriesIds fetchTopStoriesIds() =>
+      Injector.getInjector().get<FetchTopStoriesIds>();
 
   @override
   bool updateShouldNotify(_) => true;
