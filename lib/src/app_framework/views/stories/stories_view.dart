@@ -8,27 +8,33 @@ class StoriesView extends StatelessWidget {
       appBar: AppBar(
         title: Text("News"),
       ),
-      body: listBuilder(context),
+      body: _listBuilder(context),
     );
   }
 
-  Widget listBuilder(BuildContext context) {
+  Widget _listBuilder(BuildContext context) {
     final viewModel = StoriesViewModelProvider.of(context);
     viewModel.fetchTopIds();
 
     return StreamBuilder(
         stream: viewModel.topIds,
         builder: (BuildContext context, AsyncSnapshot<List<int>> snapshot) {
-          if (!snapshot.hasData) {
-            return Text("Still loading...");
-          } else {
-            return ListView.builder(
-              itemBuilder: (BuildContext context, int index) {
-                return Text('Item index $index');
-              },
-              itemCount: snapshot.data.length,
-            );
-          }
+          return (!snapshot.hasData) ? _progressIndicator() : _list(snapshot);
         });
+  }
+
+  ListView _list(AsyncSnapshot<List<int>> snapshot) {
+    return ListView.builder(
+      itemBuilder: (BuildContext context, int index) {
+        return Text('Item index $index');
+      },
+      itemCount: snapshot.data.length,
+    );
+  }
+
+  Widget _progressIndicator() {
+    return Center(
+      child: CircularProgressIndicator(),
+    );
   }
 }
