@@ -7,9 +7,11 @@ Widget centeredMessage(String message) {
   );
 }
 
-Widget simpleItem(String title) {
+Widget simpleTitle(String title) {
   return Container(
     height: Metrics.list.item.defaultHeight,
-    child: centeredMessage(title),
+    child: ListTile(
+      title: centeredMessage(title),
+    ),
   );
 }

@@ -33,12 +33,27 @@ class StoryItemView extends StatelessWidget {
     );
   }
 
-  Widget _loadingItem() => simpleItem('...');
+  Widget _loadingItem() => simpleTitle('...');
 
   Widget _storyItem(ItemModel item) {
-    return Container(
-      height: Metrics.list.item.defaultHeight,
-      child: Text(item.title),
+    return Column(
+      children: <Widget>[
+        _itemTile(item),
+        Divider(),
+      ],
+    );
+  }
+
+  ListTile _itemTile(ItemModel item) {
+    return ListTile(
+      title: Text(item.title),
+      subtitle: Text("${item.score}"),
+      trailing: Column(
+        children: <Widget>[
+          Icon(Icons.comment),
+          Text("${item.descendants}"),
+        ],
+      ),
     );
   }
 }
