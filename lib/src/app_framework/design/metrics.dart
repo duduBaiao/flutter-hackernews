@@ -7,5 +7,5 @@ class _List {
 }
 
 class _ListItem {
-  final defaultHeight = 80.0;
+  final defaultHeight = 72.0;
 }
