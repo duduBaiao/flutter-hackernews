@@ -11,8 +11,7 @@ class StoriesViewModelProvider extends InheritedWidget {
       : viewModel = StoriesViewModel(fetchTopStoriesIds(), fetchItem()),
         super(key: key, child: child);
 
-  static FetchTopStoriesIdsUseCase fetchTopStoriesIds() =>
-      Injector.getInjector().get<FetchTopStoriesIdsUseCase>();
+  static FetchTopStoriesIdsUseCase fetchTopStoriesIds() => Injector.getInjector().get<FetchTopStoriesIdsUseCase>();
 
   static FetchItemUseCase fetchItem() => Injector.getInjector().get<FetchItemUseCase>();
 
@@ -20,8 +19,6 @@ class StoriesViewModelProvider extends InheritedWidget {
   bool updateShouldNotify(_) => true;
 
   static StoriesViewModel of(BuildContext context) {
-    return (context.inheritFromWidgetOfExactType(StoriesViewModelProvider)
-            as StoriesViewModelProvider)
-        .viewModel;
+    return (context.inheritFromWidgetOfExactType(StoriesViewModelProvider) as StoriesViewModelProvider).viewModel;
   }
 }
