@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:news/src/app_framework/views/stories/stories_view_model_provider.dart';
 import 'package:news/src/domain/models/item_model.dart';
 
-class StoryWidget extends StatelessWidget {
+class StoryItemView extends StatelessWidget {
   final int itemId;
 
-  StoryWidget({this.itemId});
+  StoryItemView({this.itemId});
 
   @override
   Widget build(BuildContext context) {

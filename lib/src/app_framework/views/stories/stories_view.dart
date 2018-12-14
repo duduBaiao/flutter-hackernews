@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news/src/app_framework/views/stories/stories_view_model_provider.dart';
-import 'package:news/src/app_framework/views/stories/story_widget.dart';
+import 'package:news/src/app_framework/views/stories/story_item_view.dart';
 import 'package:news/src/view_models/stories_view_model.dart';
 
 class StoriesView extends StatelessWidget {
@@ -31,7 +31,7 @@ class StoriesView extends StatelessWidget {
         final itemId = listSnapshot.data[index];
         viewModel.fetchItem(itemId);
 
-        return StoryWidget(itemId: itemId);
+        return StoryItemView(itemId: itemId);
       },
       itemCount: listSnapshot.data.length,
     );
