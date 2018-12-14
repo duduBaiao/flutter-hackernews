@@ -15,3 +15,15 @@ Widget simpleTitle(String title) {
     ),
   );
 }
+
+Widget loadingTitle() {
+  return Container(
+    height: Metrics.list.item.defaultHeight,
+    child: ListTile(
+      title: Container(
+        height: 36.0,
+        color: Colors.grey[100],
+      ),
+    ),
+  );
+}

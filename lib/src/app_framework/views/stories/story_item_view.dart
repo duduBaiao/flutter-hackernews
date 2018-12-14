@@ -17,14 +17,14 @@ class StoryItemView extends StatelessWidget {
       stream: viewModel.items,
       builder: (BuildContext context, AsyncSnapshot<Map<int, Future<ItemModel>>> itemsSnapshot) {
         if (!itemsSnapshot.hasData) {
-          return _loadingItem();
+          return loadingTitle();
         }
 
         return FutureBuilder(
           future: itemsSnapshot.data[itemId],
           builder: (BuildContext context, AsyncSnapshot<ItemModel> itemSnapshot) {
             if (!itemSnapshot.hasData) {
-              return _loadingItem();
+              return loadingTitle();
             }
             return _storyItem(itemSnapshot.data);
           },
@@ -32,8 +32,6 @@ class StoryItemView extends StatelessWidget {
       },
     );
   }
-
-  Widget _loadingItem() => simpleTitle('...');
 
   ListTile _storyItem(ItemModel item) {
     return ListTile(
