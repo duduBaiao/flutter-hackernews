@@ -16,7 +16,7 @@ ItemModel itemFromJsonMap(Map<String, dynamic> jsonMap) {
       url: jsonMap['url'],
       score: jsonMap['score'],
       title: jsonMap['title'],
-      descendants: jsonMap['descendants']);
+      descendants: jsonMap['descendants'] ?? 0);
 }
 
 ItemModel itemFromRowMap(Map<String, dynamic> rowMap) {
