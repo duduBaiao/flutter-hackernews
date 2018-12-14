@@ -26,7 +26,7 @@ class StoriesView extends StatelessWidget {
   }
 
   ListView _list(AsyncSnapshot<List<int>> listSnapshot, StoriesViewModel viewModel) {
-    return ListView.builder(
+    return ListView.separated(
       itemBuilder: (BuildContext context, int index) {
         final itemId = listSnapshot.data[index];
         viewModel.fetchItem(itemId);
@@ -34,6 +34,7 @@ class StoriesView extends StatelessWidget {
         return StoryItemView(itemId: itemId);
       },
       itemCount: listSnapshot.data.length,
+      separatorBuilder: (BuildContext context, int index) => Divider(),
     );
   }
 

@@ -35,16 +35,7 @@ class StoryItemView extends StatelessWidget {
 
   Widget _loadingItem() => simpleTitle('...');
 
-  Widget _storyItem(ItemModel item) {
-    return Column(
-      children: <Widget>[
-        _itemTile(item),
-        Divider(),
-      ],
-    );
-  }
-
-  ListTile _itemTile(ItemModel item) {
+  ListTile _storyItem(ItemModel item) {
     return ListTile(
       title: Text(item.title),
       subtitle: Text("${item.score}"),
