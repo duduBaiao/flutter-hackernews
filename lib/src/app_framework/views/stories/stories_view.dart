@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:news/src/app_framework/design/widgets.dart';
 import 'package:news/src/app_framework/views/stories/stories_view_model_provider.dart';
 import 'package:news/src/app_framework/views/stories/story_item_view.dart';
-import 'package:news/src/view_models/stories_view_model.dart';
 
 class StoriesView extends StatelessWidget {
   @override
@@ -21,20 +20,17 @@ class StoriesView extends StatelessWidget {
 
     return StreamBuilder(
         stream: viewModel.topIds,
-        builder: (BuildContext context, AsyncSnapshot<List<int>> listSnapshot) {
-          return (!listSnapshot.hasData) ? progressIndicator() : _list(listSnapshot, viewModel);
+        builder: (BuildContext context, AsyncSnapshot<List<int>> topIdsSnapshot) {
+          return (!topIdsSnapshot.hasData) ? progressIndicator() : _list(topIdsSnapshot);
         });
   }
 
-  ListView _list(AsyncSnapshot<List<int>> listSnapshot, StoriesViewModel viewModel) {
+  ListView _list(AsyncSnapshot<List<int>> topIdsSnapshot) {
     return ListView.separated(
+      itemCount: topIdsSnapshot.data.length,
       itemBuilder: (BuildContext context, int index) {
-        final itemId = listSnapshot.data[index];
-        viewModel.fetchItem(itemId);
-
-        return StoryItemView(itemId: itemId);
+        return StoryItemView(itemId: topIdsSnapshot.data[index]);
       },
-      itemCount: listSnapshot.data.length,
       separatorBuilder: (BuildContext context, int index) => Divider(),
     );
   }

@@ -9,41 +9,23 @@ class StoriesViewModel {
   final FetchTopStoriesIdsUseCase _fetchTopStoriesIdsUseCase;
   final FetchItemUseCase _fetchItemUseCase;
 
-  StoriesViewModel(this._fetchTopStoriesIdsUseCase, this._fetchItemUseCase) {
-    _itemIdsInput.stream.transform(_idsToItemsTransformer()).pipe(_itemsOutput);
-  }
+  StoriesViewModel(this._fetchTopStoriesIdsUseCase, this._fetchItemUseCase);
 
   final _topIds = BehaviorSubject<List<int>>();
-
-  final _itemIdsInput = PublishSubject<int>();
-  final _itemsOutput = BehaviorSubject<Map<int, Future<ItemModel>>>();
+  final _itemsCache = Map<int, Future<ItemModel>>();
 
   Observable<List<int>> get topIds => _topIds.stream;
-
-  Observable<Map<int, Future<ItemModel>>> get items => _itemsOutput.stream;
 
   fetchTopIds() async {
     final ids = await _fetchTopStoriesIdsUseCase.execute();
     _topIds.sink.add(ids);
   }
 
-  fetchItem(int id) {
-    _itemIdsInput.sink.add(id);
-  }
-
-  ScanStreamTransformer<int, Map<int, Future<ItemModel>>> _idsToItemsTransformer() {
-    return ScanStreamTransformer(
-      (Map<int, Future<ItemModel>> cache, int id, _) {
-        cache[id] = _fetchItemUseCase.execute(id);
-        return cache;
-      },
-      <int, Future<ItemModel>>{},
-    );
+  Future<ItemModel> fetchItem(int id) {
+    return _itemsCache[id] = (_itemsCache[id] ?? _fetchItemUseCase.execute(id));
   }
 
   dispose() {
     _topIds.close();
-    _itemIdsInput.close();
-    _itemsOutput.close();
   }
 }

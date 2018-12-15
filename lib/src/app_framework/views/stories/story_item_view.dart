@@ -12,22 +12,13 @@ class StoryItemView extends StatelessWidget {
   Widget build(BuildContext context) {
     final viewModel = StoriesViewModelProvider.of(context);
 
-    return StreamBuilder(
-      stream: viewModel.items,
-      builder: (BuildContext context, AsyncSnapshot<Map<int, Future<ItemModel>>> itemsSnapshot) {
-        if (!itemsSnapshot.hasData) {
+    return FutureBuilder(
+      future: viewModel.fetchItem(itemId),
+      builder: (BuildContext context, AsyncSnapshot<ItemModel> itemSnapshot) {
+        if (!itemSnapshot.hasData) {
           return loadingTile();
         }
-
-        return FutureBuilder(
-          future: itemsSnapshot.data[itemId],
-          builder: (BuildContext context, AsyncSnapshot<ItemModel> itemSnapshot) {
-            if (!itemSnapshot.hasData) {
-              return loadingTile();
-            }
-            return _storyItem(itemSnapshot.data);
-          },
-        );
+        return _storyItem(itemSnapshot.data);
       },
     );
   }
