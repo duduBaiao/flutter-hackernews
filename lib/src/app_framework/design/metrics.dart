@@ -3,9 +3,9 @@ class Metrics {
 }
 
 class _List {
-  final item = _ListItem();
+  final tile = _ListTile();
 }
 
-class _ListItem {
+class _ListTile {
   final defaultHeight = 72.0;
 }
