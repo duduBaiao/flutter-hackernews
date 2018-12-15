@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:news/src/app_framework/design/metrics.dart';
 import 'package:news/src/app_framework/design/widgets.dart';
 import 'package:news/src/app_framework/views/stories/stories_view_model_provider.dart';
 import 'package:news/src/domain/models/item_model.dart';
