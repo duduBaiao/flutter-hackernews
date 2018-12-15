@@ -9,15 +9,14 @@ class StoriesViewModel {
   final FetchTopStoriesIdsUseCase _fetchTopStoriesIdsUseCase;
   final FetchItemUseCase _fetchItemUseCase;
 
-  final _topIds = BehaviorSubject<List<int>>();
-
-  final _itemIdsInput = PublishSubject<int>();
-
-  final _itemsOutput = BehaviorSubject<Map<int, Future<ItemModel>>>();
-
   StoriesViewModel(this._fetchTopStoriesIdsUseCase, this._fetchItemUseCase) {
     _itemIdsInput.stream.transform(_idsToItemsTransformer()).pipe(_itemsOutput);
   }
+
+  final _topIds = BehaviorSubject<List<int>>();
+
+  final _itemIdsInput = PublishSubject<int>();
+  final _itemsOutput = BehaviorSubject<Map<int, Future<ItemModel>>>();
 
   Observable<List<int>> get topIds => _topIds.stream;
 
