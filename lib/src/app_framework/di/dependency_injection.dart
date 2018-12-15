@@ -18,7 +18,11 @@ void initDependencyInjection() {
   injector.map<ApiDataSource>((i) => ApiDataSourceImpl(client), isSingleton: true);
 
   // Repositories
-  injector.map<NewsRepository>((i) => NewsRepositoryImpl(i.get<DbDataSource>(), i.get<ApiDataSource>()),
+  injector.map<NewsRepository>(
+      (i) => NewsRepositoryImpl(
+            i.get<DbDataSource>(),
+            i.get<ApiDataSource>(),
+          ),
       isSingleton: true);
 
   // Use Cases
