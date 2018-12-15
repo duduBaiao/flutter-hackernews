@@ -16,14 +16,14 @@ class StoryItemView extends StatelessWidget {
       stream: viewModel.items,
       builder: (BuildContext context, AsyncSnapshot<Map<int, Future<ItemModel>>> itemsSnapshot) {
         if (!itemsSnapshot.hasData) {
-          return loadingTitle();
+          return loadingTile();
         }
 
         return FutureBuilder(
           future: itemsSnapshot.data[itemId],
           builder: (BuildContext context, AsyncSnapshot<ItemModel> itemSnapshot) {
             if (!itemSnapshot.hasData) {
-              return loadingTitle();
+              return loadingTile();
             }
             return _storyItem(itemSnapshot.data);
           },

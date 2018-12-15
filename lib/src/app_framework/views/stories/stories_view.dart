@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news/src/app_framework/design/widgets.dart';
 import 'package:news/src/app_framework/views/stories/stories_view_model_provider.dart';
 import 'package:news/src/app_framework/views/stories/story_item_view.dart';
 import 'package:news/src/view_models/stories_view_model.dart';
@@ -21,7 +22,7 @@ class StoriesView extends StatelessWidget {
     return StreamBuilder(
         stream: viewModel.topIds,
         builder: (BuildContext context, AsyncSnapshot<List<int>> listSnapshot) {
-          return (!listSnapshot.hasData) ? _progressIndicator() : _list(listSnapshot, viewModel);
+          return (!listSnapshot.hasData) ? progressIndicator() : _list(listSnapshot, viewModel);
         });
   }
 
@@ -35,12 +36,6 @@ class StoriesView extends StatelessWidget {
       },
       itemCount: listSnapshot.data.length,
       separatorBuilder: (BuildContext context, int index) => Divider(),
-    );
-  }
-
-  Widget _progressIndicator() {
-    return Center(
-      child: CircularProgressIndicator(),
     );
   }
 }

@@ -10,11 +10,11 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: buildStoriesView(),
+      home: storiesView(),
     );
   }
 
-  Widget buildStoriesView() {
+  Widget storiesView() {
     return StoriesViewModelProvider(
       child: StoriesView(),
     );
