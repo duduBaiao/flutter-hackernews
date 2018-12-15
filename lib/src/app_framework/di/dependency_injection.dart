@@ -13,9 +13,8 @@ void initDependencyInjection() {
   final injector = Injector.getInjector();
 
   // Data Sources
-  final client = Client();
   injector.map<DbDataSource>((i) => DbDataSourceImpl(), isSingleton: true);
-  injector.map<ApiDataSource>((i) => ApiDataSourceImpl(client), isSingleton: true);
+  injector.map<ApiDataSource>((i) => ApiDataSourceImpl(Client()), isSingleton: true);
 
   // Repositories
   injector.map<NewsRepository>(
