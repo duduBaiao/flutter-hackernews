@@ -9,9 +9,10 @@ class StoriesViewModel {
   final FetchTopStoriesIdsUseCase _fetchTopStoriesIdsUseCase;
   final FetchItemUseCase _fetchItemUseCase;
 
-  final _topIds = PublishSubject<List<int>>();
+  final _topIds = BehaviorSubject<List<int>>();
 
-  final _itemIdsInput = BehaviorSubject<int>();
+  final _itemIdsInput = PublishSubject<int>();
+
   final _itemsOutput = BehaviorSubject<Map<int, Future<ItemModel>>>();
 
   StoriesViewModel(this._fetchTopStoriesIdsUseCase, this._fetchItemUseCase) {
