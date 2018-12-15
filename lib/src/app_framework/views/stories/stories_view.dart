@@ -16,13 +16,13 @@ class StoriesView extends StatelessWidget {
 
   Widget _listBuilder(BuildContext context) {
     final viewModel = StoriesViewModelProvider.of(context);
-    viewModel.fetchTopIds();
 
-    return StreamBuilder(
-        stream: viewModel.topIds,
-        builder: (BuildContext context, AsyncSnapshot<List<int>> topIdsSnapshot) {
-          return (!topIdsSnapshot.hasData) ? progressIndicator() : _list(topIdsSnapshot);
-        });
+    return FutureBuilder(
+      future: viewModel.fetchTopIds(),
+      builder: (BuildContext context, AsyncSnapshot<List<int>> topIdsSnapshot) {
+        return (!topIdsSnapshot.hasData) ? progressIndicator() : _list(topIdsSnapshot);
+      },
+    );
   }
 
   ListView _list(AsyncSnapshot<List<int>> topIdsSnapshot) {
