@@ -1,7 +1,7 @@
 import 'dart:io';
 
+import 'package:news/src/app_framework/data_sources/mappers/item_model_mappers.dart';
 import 'package:news/src/data/data_sources/db_data_source.dart';
-import 'package:news/src/data/mappers/item_model_mappers.dart';
 import 'package:news/src/domain/models/item_model.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';

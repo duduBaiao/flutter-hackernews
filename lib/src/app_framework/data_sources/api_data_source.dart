@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' show Client;
+import 'package:news/src/app_framework/data_sources/mappers/item_model_mappers.dart';
 import 'package:news/src/data/data_sources/api_data_source.dart';
-import 'package:news/src/data/mappers/item_model_mappers.dart';
 import 'package:news/src/domain/models/item_model.dart';
 
 class ApiDataSourceImpl implements ApiDataSource {
