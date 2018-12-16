@@ -7,5 +7,5 @@ abstract class NewsRepository {
 
   Future<ItemModel> fetchItem(int id);
 
-  Future<int> clearStories();
+  Future clearStories();
 }

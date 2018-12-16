@@ -5,5 +5,5 @@ class ClearStoriesUseCase {
 
   final NewsRepository _repository;
 
-  Future<int> execute() => _repository.clearStories();
+  Future execute() => _repository.clearStories();
 }

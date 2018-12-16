@@ -31,7 +31,7 @@ class StoriesViewModel {
     return _itemsCache[id] = (_itemsCache[id] ?? _fetchItemUseCase.execute(id));
   }
 
-  Future<int> clearStories() {
+  Future clearStories() {
     return _clearStoriesUseCase.execute();
   }
 
