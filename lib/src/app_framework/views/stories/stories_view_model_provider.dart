@@ -19,9 +19,9 @@ class StoriesViewModelProvider extends InheritedWidget {
   static FetchTopStoriesIdsUseCase _fetchTopStoriesIdsUseCase() =>
       Injector.getInjector().get<FetchTopStoriesIdsUseCase>();
 
-  static ClearStoriesUseCase _clearStoriesUseCase() => Injector.getInjector().get<ClearStoriesUseCase>();
-
   static FetchItemUseCase _fetchItemUseCase() => Injector.getInjector().get<FetchItemUseCase>();
+
+  static ClearStoriesUseCase _clearStoriesUseCase() => Injector.getInjector().get<ClearStoriesUseCase>();
 
   @override
   bool updateShouldNotify(_) => true;
