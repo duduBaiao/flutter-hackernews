@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:news/src/domain/data_sources/api_data_source.dart';
-import 'package:news/src/domain/data_sources/db_data_source.dart';
+import 'package:news/src/data/data_sources/api_data_source.dart';
+import 'package:news/src/data/data_sources/db_data_source.dart';
 import 'package:news/src/domain/models/item_model.dart';
 import 'package:news/src/domain/repositories/news_repository.dart';
 
