@@ -12,13 +12,13 @@ class DbDataSourceImpl implements DbDataSource {
     init();
   }
 
-  Database database;
+  Database _database;
 
   init() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     final path = join(documentsDirectory.path, "items.db");
 
-    database = await openDatabase(path, version: 1, onCreate: _onCreate);
+    _database = await openDatabase(path, version: 1, onCreate: _onCreate);
   }
 
   _onCreate(Database db, int version) {
@@ -44,7 +44,7 @@ class DbDataSourceImpl implements DbDataSource {
 
   @override
   Future<ItemModel> fetchItem(int id) async {
-    final results = await database.query(
+    final results = await _database.query(
       'items',
       columns: null,
       where: 'id = ?',
@@ -60,7 +60,7 @@ class DbDataSourceImpl implements DbDataSource {
 
   @override
   Future<int> addItem(ItemModel item) {
-    return database.insert('items', rowMapFromItem(item));
+    return _database.insert('items', rowMapFromItem(item));
   }
 
   @override
