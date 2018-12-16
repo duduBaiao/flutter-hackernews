@@ -12,7 +12,8 @@ class PageNavigator {
 
   Route<dynamic> onGenerateRoute(RouteSettings settings) {
     if (settings.name.startsWith(_ITEM_DETAIL_PAGE)) {
-      return _itemDetailPageRoute();
+      int itemId = _extractIntParam(settings);
+      return _itemDetailPageRoute(itemId);
     }
     return _storiesPageRoute();
   }
@@ -29,9 +30,13 @@ class PageNavigator {
     );
   }
 
-  MaterialPageRoute _itemDetailPageRoute() {
+  MaterialPageRoute _itemDetailPageRoute(int itemId) {
     return MaterialPageRoute(builder: (BuildContext context) {
-      return ItemDetailPage();
+      return ItemDetailPage(itemId: itemId);
     });
+  }
+
+  int _extractIntParam(RouteSettings settings) {
+    return int.parse(settings.name.split("/").last);
   }
 }
