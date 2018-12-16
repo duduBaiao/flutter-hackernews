@@ -12,7 +12,7 @@ Widget loadingTile() {
     height: Metrics.list.tile.defaultHeight,
     child: ListTile(
       title: Container(
-        height: 36.0,
+        height: Metrics.list.tile.defaultTitleHeight,
         color: Colors.grey[100],
       ),
     ),

@@ -8,4 +8,5 @@ class _List {
 
 class _ListTile {
   final defaultHeight = 72.0;
+  final defaultTitleHeight = 36.0;
 }
