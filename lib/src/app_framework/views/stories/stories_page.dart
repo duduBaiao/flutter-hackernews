@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:news/src/app_framework/design/widgets.dart';
+import 'package:news/src/app_framework/views/page_navigator.dart';
 import 'package:news/src/app_framework/views/stories/stories_view_model_provider.dart';
-import 'package:news/src/app_framework/views/stories/story_item_view.dart';
+import 'package:news/src/app_framework/views/stories/story_item_widget.dart';
 import 'package:news/src/view_models/stories_view_model.dart';
 
-class StoriesView extends StatelessWidget {
+class StoriesPage extends StatelessWidget {
+  StoriesPage({@required this.pageNavigator});
+
+  final PageNavigator pageNavigator;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +38,10 @@ class StoriesView extends StatelessWidget {
       ListView.separated(
         itemCount: topIdsSnapshot.data.length,
         itemBuilder: (BuildContext context, int index) {
-          return StoryItemView(itemId: topIdsSnapshot.data[index]);
+          return StoryItemWidget(
+            itemId: topIdsSnapshot.data[index],
+            pageNavigator: pageNavigator,
+          );
         },
         separatorBuilder: (BuildContext context, int index) => Divider(),
       ),

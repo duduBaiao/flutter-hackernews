@@ -2,6 +2,7 @@ import 'package:flutter_simple_dependency_injection/injector.dart';
 import 'package:http/http.dart' show Client;
 import 'package:news/src/app_framework/data_sources/api_data_source.dart';
 import 'package:news/src/app_framework/data_sources/db_data_source.dart';
+import 'package:news/src/app_framework/views/page_navigator.dart';
 import 'package:news/src/data/data_sources/api_data_source.dart';
 import 'package:news/src/data/data_sources/db_data_source.dart';
 import 'package:news/src/data/repositories/news_repository.dart';
@@ -29,4 +30,7 @@ void initDependencyInjection() {
   injector.map<FetchTopStoriesIdsUseCase>((i) => FetchTopStoriesIdsUseCase(i.get<NewsRepository>()));
   injector.map<FetchItemUseCase>((i) => FetchItemUseCase(i.get<NewsRepository>()));
   injector.map<ClearStoriesUseCase>((i) => ClearStoriesUseCase(i.get<NewsRepository>()));
+
+  // Page Navigator
+  injector.map<PageNavigator>((i) => PageNavigator(), isSingleton: true);
 }
