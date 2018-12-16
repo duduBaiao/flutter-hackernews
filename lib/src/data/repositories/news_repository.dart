@@ -26,4 +26,9 @@ class NewsRepositoryImpl implements NewsRepository {
 
     return item;
   }
+
+  @override
+  Future<int> clearStories() {
+    return _dbDataSource.clear();
+  }
 }

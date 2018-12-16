@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:news/src/app_framework/design/widgets.dart';
 import 'package:news/src/app_framework/views/stories/stories_view_model_provider.dart';
 import 'package:news/src/app_framework/views/stories/story_item_view.dart';
+import 'package:news/src/view_models/stories_view_model.dart';
 
 class StoriesView extends StatelessWidget {
   @override
@@ -16,17 +17,19 @@ class StoriesView extends StatelessWidget {
 
   Widget _listBuilder(BuildContext context) {
     final viewModel = StoriesViewModelProvider.of(context);
+    viewModel.fetchTopIds();
 
-    return FutureBuilder(
-      future: viewModel.fetchTopIds(),
+    return StreamBuilder(
+      stream: viewModel.topIds,
       builder: (BuildContext context, AsyncSnapshot<List<int>> topIdsSnapshot) {
-        return (!topIdsSnapshot.hasData) ? progressIndicator() : _list(topIdsSnapshot);
+        return (!topIdsSnapshot.hasData) ? progressIndicator() : _list(viewModel, topIdsSnapshot);
       },
     );
   }
 
-  Widget _list(AsyncSnapshot<List<int>> topIdsSnapshot) {
+  Widget _list(StoriesViewModel viewModel, AsyncSnapshot<List<int>> topIdsSnapshot) {
     return _refreshIndicator(
+      viewModel,
       ListView.separated(
         itemCount: topIdsSnapshot.data.length,
         itemBuilder: (BuildContext context, int index) {
@@ -37,10 +40,13 @@ class StoriesView extends StatelessWidget {
     );
   }
 
-  Widget _refreshIndicator(Widget child) {
+  Widget _refreshIndicator(StoriesViewModel viewModel, Widget child) {
     return RefreshIndicator(
       child: child,
-      onRefresh: () {},
+      onRefresh: () async {
+        await viewModel.clearStories();
+        await viewModel.fetchTopIds();
+      },
     );
   }
 }

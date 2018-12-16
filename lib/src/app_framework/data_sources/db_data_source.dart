@@ -69,7 +69,7 @@ class DbDataSourceImpl implements DbDataSource {
   }
 
   @override
-  clear() {
-    _database.delete(_ITEMS);
+  Future<int> clear() {
+    return _database.delete(_ITEMS);
   }
 }

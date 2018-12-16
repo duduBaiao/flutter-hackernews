@@ -1,23 +1,41 @@
 import 'dart:async';
 
 import 'package:news/src/domain/models/item_model.dart';
+import 'package:news/src/use_cases/stories/clear_stories_use_case.dart';
 import 'package:news/src/use_cases/stories/fetch_item_use_case.dart';
 import 'package:news/src/use_cases/stories/fetch_top_stories_ids_use_case.dart';
+import 'package:rxdart/rxdart.dart';
 
 class StoriesViewModel {
-  StoriesViewModel(this._fetchTopStoriesIdsUseCase, this._fetchItemUseCase);
+  StoriesViewModel(
+    this._fetchTopStoriesIdsUseCase,
+    this._fetchItemUseCase,
+    this._clearStoriesUseCase,
+  );
 
   final FetchTopStoriesIdsUseCase _fetchTopStoriesIdsUseCase;
   final FetchItemUseCase _fetchItemUseCase;
+  final ClearStoriesUseCase _clearStoriesUseCase;
 
-  Future<List<int>> _topIdsCache;
+  final _topIds = BehaviorSubject<List<int>>();
   final _itemsCache = Map<int, Future<ItemModel>>();
 
-  Future<List<int>> fetchTopIds() async {
-    return _topIdsCache = (_topIdsCache ?? _fetchTopStoriesIdsUseCase.execute());
+  Observable<List<int>> get topIds => _topIds.stream;
+
+  fetchTopIds() async {
+    final ids = await _fetchTopStoriesIdsUseCase.execute();
+    _topIds.sink.add(ids);
   }
 
   Future<ItemModel> fetchItem(int id) {
     return _itemsCache[id] = (_itemsCache[id] ?? _fetchItemUseCase.execute(id));
+  }
+
+  Future<int> clearStories() {
+    return _clearStoriesUseCase.execute();
+  }
+
+  dispose() {
+    _topIds.close();
   }
 }

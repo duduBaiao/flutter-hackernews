@@ -6,4 +6,6 @@ abstract class NewsRepository {
   Future<List<int>> fetchTopStoriesIds();
 
   Future<ItemModel> fetchItem(int id);
+
+  Future<int> clearStories();
 }
