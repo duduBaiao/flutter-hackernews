@@ -5,11 +5,11 @@ import 'package:news/src/use_cases/stories/fetch_top_stories_ids_use_case.dart';
 import 'package:news/src/view_models/stories_view_model.dart';
 
 class StoriesViewModelProvider extends InheritedWidget {
-  final StoriesViewModel viewModel;
-
   StoriesViewModelProvider({Key key, Widget child})
       : viewModel = StoriesViewModel(_fetchTopStoriesIdsUseCase(), _fetchItemUseCase()),
         super(key: key, child: child);
+
+  final StoriesViewModel viewModel;
 
   static FetchTopStoriesIdsUseCase _fetchTopStoriesIdsUseCase() =>
       Injector.getInjector().get<FetchTopStoriesIdsUseCase>();

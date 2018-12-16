@@ -5,10 +5,10 @@ import 'package:news/src/use_cases/stories/fetch_item_use_case.dart';
 import 'package:news/src/use_cases/stories/fetch_top_stories_ids_use_case.dart';
 
 class StoriesViewModel {
+  StoriesViewModel(this._fetchTopStoriesIdsUseCase, this._fetchItemUseCase);
+
   final FetchTopStoriesIdsUseCase _fetchTopStoriesIdsUseCase;
   final FetchItemUseCase _fetchItemUseCase;
-
-  StoriesViewModel(this._fetchTopStoriesIdsUseCase, this._fetchItemUseCase);
 
   Future<List<int>> _topIdsCache;
   final _itemsCache = Map<int, Future<ItemModel>>();

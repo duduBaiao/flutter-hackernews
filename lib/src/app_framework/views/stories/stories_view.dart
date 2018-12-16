@@ -25,13 +25,22 @@ class StoriesView extends StatelessWidget {
     );
   }
 
-  ListView _list(AsyncSnapshot<List<int>> topIdsSnapshot) {
-    return ListView.separated(
-      itemCount: topIdsSnapshot.data.length,
-      itemBuilder: (BuildContext context, int index) {
-        return StoryItemView(itemId: topIdsSnapshot.data[index]);
-      },
-      separatorBuilder: (BuildContext context, int index) => Divider(),
+  Widget _list(AsyncSnapshot<List<int>> topIdsSnapshot) {
+    return _refreshIndicator(
+      ListView.separated(
+        itemCount: topIdsSnapshot.data.length,
+        itemBuilder: (BuildContext context, int index) {
+          return StoryItemView(itemId: topIdsSnapshot.data[index]);
+        },
+        separatorBuilder: (BuildContext context, int index) => Divider(),
+      ),
+    );
+  }
+
+  Widget _refreshIndicator(Widget child) {
+    return RefreshIndicator(
+      child: child,
+      onRefresh: () {},
     );
   }
 }

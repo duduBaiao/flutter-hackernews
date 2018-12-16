@@ -5,12 +5,12 @@ import 'package:news/src/data/mappers/item_model_mappers.dart';
 import 'package:news/src/domain/data_sources/api_data_source.dart';
 import 'package:news/src/domain/models/item_model.dart';
 
-const _ROOT_URL = "https://hacker-news.firebaseio.com/v0";
-
 class ApiDataSourceImpl implements ApiDataSource {
-  final Client _client;
+  static const _ROOT_URL = "https://hacker-news.firebaseio.com/v0";
 
   ApiDataSourceImpl(this._client);
+
+  final Client _client;
 
   @override
   Future<List<int>> fetchTopStoriesIds() async {

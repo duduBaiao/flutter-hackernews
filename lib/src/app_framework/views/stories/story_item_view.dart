@@ -4,9 +4,9 @@ import 'package:news/src/app_framework/views/stories/stories_view_model_provider
 import 'package:news/src/domain/models/item_model.dart';
 
 class StoryItemView extends StatelessWidget {
-  final int itemId;
-
   StoryItemView({this.itemId});
+
+  final int itemId;
 
   @override
   Widget build(BuildContext context) {

@@ -8,6 +8,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DbDataSourceImpl implements DbDataSource {
+  static const _ITEMS = "items";
+
   DbDataSourceImpl() {
     init();
   }
@@ -16,16 +18,15 @@ class DbDataSourceImpl implements DbDataSource {
 
   init() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    final path = join(documentsDirectory.path, "items.db");
+    final path = join(documentsDirectory.path, "news.db");
 
     _database = await openDatabase(path, version: 1, onCreate: _onCreate);
   }
 
   _onCreate(Database db, int version) {
     db.execute("""
-      create table items
-        (
-        id integer primary key,
+      create table $_ITEMS
+        (id integer primary key,
         type text,
         by text,
         time integer,
@@ -37,15 +38,14 @@ class DbDataSourceImpl implements DbDataSource {
         url text,
         score integer,
         title text,
-        descendants integer
-        )
+        descendants integer)
     """);
   }
 
   @override
   Future<ItemModel> fetchItem(int id) async {
     final results = await _database.query(
-      'items',
+      _ITEMS,
       columns: null,
       where: 'id = ?',
       whereArgs: [id],
@@ -60,11 +60,16 @@ class DbDataSourceImpl implements DbDataSource {
 
   @override
   Future<int> addItem(ItemModel item) {
-    return _database.insert('items', rowMapFromItem(item));
+    return _database.insert(_ITEMS, rowMapFromItem(item));
   }
 
   @override
   Future<List<int>> fetchTopStoriesIds() {
     return null;
+  }
+
+  @override
+  clear() {
+    _database.delete(_ITEMS);
   }
 }
