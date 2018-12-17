@@ -27,8 +27,8 @@ class StoriesViewModel {
     _topIds.sink.add(ids);
   }
 
-  Future<ItemModel> fetchItem(int id) {
-    return _itemsCache[id] ??= _fetchItemUseCase.execute(id);
+  Future<ItemModel> fetchItem(int itemId) {
+    return _itemsCache[itemId] ??= _fetchItemUseCase.execute(itemId);
   }
 
   clearStories() async {

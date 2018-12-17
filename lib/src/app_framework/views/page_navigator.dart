@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news/src/app_framework/views/item_detail/item_detail_page.dart';
+import 'package:news/src/app_framework/views/item_detail/item_detail_scoped_model.dart';
 import 'package:news/src/app_framework/views/stories/stories_page.dart';
 import 'package:news/src/app_framework/views/stories/stories_scoped_model.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -40,7 +41,10 @@ class PageNavigator {
   }
 
   Widget _itemDetailPageRoute(int itemId) {
-    return ItemDetailPage(itemId: itemId);
+    return ScopedModel<ItemDetailScopedModel>(
+      model: ItemDetailScopedModel(),
+      child: ItemDetailPage(itemId: itemId),
+    );
   }
 
   int _extractIntParam(RouteSettings settings) {
