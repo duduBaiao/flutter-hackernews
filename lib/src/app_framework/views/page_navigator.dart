@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:news/src/app_framework/views/item_detail/item_detail_page.dart';
 import 'package:news/src/app_framework/views/stories/stories_page.dart';
-import 'package:news/src/app_framework/views/stories/stories_view_model_provider.dart';
+import 'package:news/src/app_framework/views/stories/stories_scoped_model.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class PageNavigator {
   static const _ITEM_DETAIL_PAGE = "/item_detail/";
@@ -25,7 +26,8 @@ class PageNavigator {
   }
 
   Widget _storiesPage() {
-    return StoriesViewModelProvider(
+    return ScopedModel<StoriesScopedModel>(
+      model: StoriesScopedModel(),
       child: StoriesPage(pageNavigator: this),
     );
   }

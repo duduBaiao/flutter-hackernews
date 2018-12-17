@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:news/src/app_framework/design/widgets.dart';
 import 'package:news/src/app_framework/views/page_navigator.dart';
-import 'package:news/src/app_framework/views/stories/stories_view_model_provider.dart';
+import 'package:news/src/app_framework/views/stories/stories_scoped_model.dart';
 import 'package:news/src/app_framework/views/stories/story_item_widget.dart';
 import 'package:news/src/view_models/stories_view_model.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class StoriesPage extends StatelessWidget {
   StoriesPage({@required this.pageNavigator});
@@ -21,7 +22,7 @@ class StoriesPage extends StatelessWidget {
   }
 
   Widget _listBuilder(BuildContext context) {
-    final viewModel = StoriesViewModelProvider.of(context);
+    final viewModel = ScopedModel.of<StoriesScopedModel>(context).viewModel;
     viewModel.fetchTopIds();
 
     return StreamBuilder(
@@ -39,6 +40,7 @@ class StoriesPage extends StatelessWidget {
         itemCount: topIdsSnapshot.data.length,
         itemBuilder: (BuildContext context, int index) {
           return StoryItemWidget(
+            viewModel: viewModel,
             itemId: topIdsSnapshot.data[index],
             pageNavigator: pageNavigator,
           );
