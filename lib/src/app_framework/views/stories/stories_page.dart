@@ -7,10 +7,6 @@ import 'package:news/src/view_models/stories_view_model.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class StoriesPage extends StatelessWidget {
-  StoriesPage({@required this.pageNavigator});
-
-  final PageNavigator pageNavigator;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,12 +24,14 @@ class StoriesPage extends StatelessWidget {
     return StreamBuilder(
       stream: viewModel.topIds,
       builder: (BuildContext context, AsyncSnapshot<List<int>> topIdsSnapshot) {
-        return (!topIdsSnapshot.hasData) ? progressIndicator() : _list(viewModel, topIdsSnapshot);
+        return (!topIdsSnapshot.hasData) ? progressIndicator() : _list(context, viewModel, topIdsSnapshot);
       },
     );
   }
 
-  Widget _list(StoriesViewModel viewModel, AsyncSnapshot<List<int>> topIdsSnapshot) {
+  Widget _list(BuildContext context, StoriesViewModel viewModel, AsyncSnapshot<List<int>> topIdsSnapshot) {
+    final pageNavigator = ScopedModel.of<PageNavigatorScopedModel>(context).pageNavigator;
+
     return _refreshIndicator(
       viewModel,
       ListView.separated(

@@ -12,33 +12,44 @@ class PageNavigator {
   }
 
   Route<dynamic> onGenerateRoute(RouteSettings settings) {
+    var pageWidget;
+
     if (settings.name.startsWith(_ITEM_DETAIL_PAGE)) {
       int itemId = _extractIntParam(settings);
-      return _itemDetailPageRoute(itemId);
+      pageWidget = _itemDetailPageRoute(itemId);
+    } else {
+      pageWidget = _storiesPage();
     }
-    return _storiesPageRoute();
+    return _pageRoute(pageWidget);
   }
 
-  MaterialPageRoute _storiesPageRoute() {
+  MaterialPageRoute _pageRoute(Widget child) {
     return MaterialPageRoute(builder: (BuildContext context) {
-      return _storiesPage();
+      return ScopedModel<PageNavigatorScopedModel>(
+        model: PageNavigatorScopedModel(pageNavigator: this),
+        child: child,
+      );
     });
   }
 
   Widget _storiesPage() {
     return ScopedModel<StoriesScopedModel>(
       model: StoriesScopedModel(),
-      child: StoriesPage(pageNavigator: this),
+      child: StoriesPage(),
     );
   }
 
-  MaterialPageRoute _itemDetailPageRoute(int itemId) {
-    return MaterialPageRoute(builder: (BuildContext context) {
-      return ItemDetailPage(itemId: itemId);
-    });
+  Widget _itemDetailPageRoute(int itemId) {
+    return ItemDetailPage(itemId: itemId);
   }
 
   int _extractIntParam(RouteSettings settings) {
     return int.parse(settings.name.split("/").last);
   }
+}
+
+class PageNavigatorScopedModel extends Model {
+  PageNavigatorScopedModel({@required this.pageNavigator});
+
+  final PageNavigator pageNavigator;
 }
