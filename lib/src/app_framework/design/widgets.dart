@@ -8,6 +8,21 @@ Widget padding(Widget child) {
   );
 }
 
+Widget lrPadding(Widget child) {
+  return Padding(
+    padding: EdgeInsets.only(left: Metrics.layout.padding, right: Metrics.layout.padding),
+    child: child,
+  );
+}
+
+Widget lrbPadding(Widget child) {
+  return Padding(
+    padding:
+        EdgeInsets.only(left: Metrics.layout.padding, right: Metrics.layout.padding, bottom: Metrics.layout.padding),
+    child: child,
+  );
+}
+
 Widget progressIndicator() {
   return Center(
     child: CircularProgressIndicator(),
@@ -25,3 +40,9 @@ Widget loadingTile() {
     ),
   );
 }
+
+Widget spacer() => _spacer(Metrics.spacing.regular);
+
+Widget spacer2x() => _spacer(Metrics.spacing.regular * 2);
+
+Widget _spacer(height) => SizedBox(height: height);

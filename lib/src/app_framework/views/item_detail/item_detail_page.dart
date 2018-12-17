@@ -31,26 +31,67 @@ class ItemDetailPage extends StatelessWidget {
           return progressIndicator();
         }
 
-        return _titleFutureBuilder(commentItemsSnapshot);
+        return _bodyFutureBuilder(commentItemsSnapshot);
       },
     );
   }
 
-  FutureBuilder<ItemModel> _titleFutureBuilder(AsyncSnapshot<Map<int, Future<ItemModel>>> commentItemsSnapshot) {
+  FutureBuilder<ItemModel> _bodyFutureBuilder(AsyncSnapshot<Map<int, Future<ItemModel>>> commentItemsSnapshot) {
     final itemFuture = commentItemsSnapshot.data[itemId];
 
     return FutureBuilder(
       future: itemFuture,
       builder: (BuildContext context, AsyncSnapshot<ItemModel> itemSnapshot) {
-        return padding(itemSnapshot.hasData ? _title(itemSnapshot.data) : Text('Loading item...'));
+        if (!itemSnapshot.hasData) {
+          return padding(Text('Loading item...'));
+        }
+
+        return _commentsList(itemSnapshot.data, commentItemsSnapshot.data);
       },
     );
+  }
+
+  Widget _commentsList(ItemModel item, Map<int, Future<ItemModel>> commentItems) {
+    final children = <Widget>[
+      padding(_title(item)),
+      lrPadding(Text('Comments:')),
+      spacer(),
+    ];
+
+    final commentList = item.kids.map((kidId) => Comment(itemId: kidId, commentItems: commentItems)).toList();
+
+    children.addAll(commentList);
+
+    return ListView(children: children);
   }
 
   Widget _title(ItemModel item) {
     return Text(
       item.title,
       style: Styles.text.title,
+    );
+  }
+}
+
+class Comment extends StatelessWidget {
+  Comment({this.itemId, this.commentItems});
+
+  final int itemId;
+  final Map<int, Future<ItemModel>> commentItems;
+
+  @override
+  Widget build(BuildContext context) {
+    final itemFuture = commentItems[itemId];
+
+    return FutureBuilder(
+      future: itemFuture,
+      builder: (BuildContext context, AsyncSnapshot<ItemModel> itemSnapshot) {
+        if (!itemSnapshot.hasData) {
+          return padding(Text(''));
+        }
+
+        return lrbPadding(Text(itemSnapshot.data.text));
+      },
     );
   }
 }
