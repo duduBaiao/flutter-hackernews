@@ -18,12 +18,14 @@ class PageNavigator {
   }
 
   MaterialPageRoute _pageRoute({Widget child}) {
-    return MaterialPageRoute(builder: (BuildContext context) {
-      return ScopedModel<PageNavigatorScopedModel>(
-        model: PageNavigatorScopedModel(pageNavigator: this),
-        child: child,
-      );
-    });
+    return MaterialPageRoute(
+      builder: (BuildContext context) {
+        return ScopedModel<PageNavigatorScopedModel>(
+          model: PageNavigatorScopedModel(pageNavigator: this),
+          child: child,
+        );
+      },
+    );
   }
 
   Widget _storiesPage() {
