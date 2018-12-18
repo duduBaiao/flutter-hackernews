@@ -43,6 +43,6 @@ Widget loadingTile() {
 
 Widget spacer() => _spacer(Metrics.spacing.regular);
 
-Widget spacer2x() => _spacer(Metrics.spacing.regular * 2);
+Widget doubleSpacer() => _spacer(Metrics.spacing.regular * 2);
 
 Widget _spacer(height) => SizedBox(height: height);

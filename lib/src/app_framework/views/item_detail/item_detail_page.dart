@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html_view/flutter_html_view.dart';
 import 'package:news/src/app_framework/design/metrics.dart';
 import 'package:news/src/app_framework/design/styles.dart';
 import 'package:news/src/app_framework/design/widgets.dart';
@@ -95,10 +96,18 @@ class ItemDetailPage extends StatelessWidget {
         final item = itemSnapshot.data;
 
         final children = <Widget>[
-          ListTile(
-            title: Text(item.deleted ? 'Deleted' : item.text),
-            subtitle: Text(item.by),
-            contentPadding: EdgeInsets.only(left: Metrics.layout.padding * depth, right: Metrics.layout.padding),
+          Padding(
+            padding: EdgeInsets.only(
+              left: Metrics.layout.halfPadding * depth,
+              right: Metrics.layout.halfPadding,
+            ),
+            child: Column(
+              children: <Widget>[
+                Padding(child: Text(item.by), padding: EdgeInsets.only(left: Metrics.layout.halfPadding)),
+                HtmlView(data: "<p>${item.deleted ? 'Deleted' : item.text}</p>", padding: EdgeInsets.zero),
+              ],
+              crossAxisAlignment: CrossAxisAlignment.start,
+            ),
           ),
           Divider(),
         ];

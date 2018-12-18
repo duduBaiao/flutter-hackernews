@@ -5,6 +5,7 @@ class Metrics {
 }
 
 class _Layout {
+  final halfPadding = 8.0;
   final padding = 16.0;
 }
 
