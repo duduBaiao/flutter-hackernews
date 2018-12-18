@@ -58,9 +58,7 @@ class ItemDetailPage extends StatelessWidget {
       spacer(),
     ];
 
-    final commentList = item.kids.map((kidId) => Comment(itemId: kidId, commentItems: commentItems)).toList();
-
-    children.addAll(commentList);
+    _addComments(item, commentItems, children);
 
     return ListView(children: children);
   }
@@ -71,16 +69,13 @@ class ItemDetailPage extends StatelessWidget {
       style: Styles.text.title,
     );
   }
-}
 
-class Comment extends StatelessWidget {
-  Comment({this.itemId, this.commentItems});
+  void _addComments(ItemModel item, Map<int, Future<ItemModel>> commentItems, List<Widget> children) {
+    final commentList = item.kids.map((kidId) => _comment(kidId, commentItems)).toList();
+    children.addAll(commentList);
+  }
 
-  final int itemId;
-  final Map<int, Future<ItemModel>> commentItems;
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _comment(int itemId, Map<int, Future<ItemModel>> commentItems) {
     final itemFuture = commentItems[itemId];
 
     return FutureBuilder(
@@ -90,7 +85,18 @@ class Comment extends StatelessWidget {
           return padding(Text(''));
         }
 
-        return lrbPadding(Text(itemSnapshot.data.text));
+        final item = itemSnapshot.data;
+
+        final children = <Widget>[
+          lrbPadding(Text(item.text)),
+        ];
+
+        _addComments(item, commentItems, children);
+
+        return Column(
+          children: children,
+          crossAxisAlignment: CrossAxisAlignment.start,
+        );
       },
     );
   }
