@@ -13,14 +13,12 @@ class ItemDetailPage extends StatelessWidget {
   final int itemId;
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Item Detail"),
-      ),
-      body: _bodyBuilder(context),
-    );
-  }
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: Text("Item Detail"),
+        ),
+        body: _bodyBuilder(context),
+      );
 
   Widget _bodyBuilder(BuildContext context) {
     final viewModel = ScopedModel.of<ItemDetailScopedModel>(context).viewModel;
@@ -70,12 +68,7 @@ class ItemDetailPage extends StatelessWidget {
     return ListView(children: children);
   }
 
-  Widget _title(ItemModel item) {
-    return Text(
-      item.title,
-      style: Styles.text.title,
-    );
-  }
+  Widget _title(ItemModel item) => Text(item.title, style: Styles.text.title);
 
   void _addComments(ItemModel item, Map<int, Future<ItemModel>> commentItems, List<Widget> children, int depth) {
     final newDepth = ++depth;

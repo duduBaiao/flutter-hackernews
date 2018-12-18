@@ -8,14 +8,12 @@ import 'package:scoped_model/scoped_model.dart';
 
 class StoriesPage extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("News"),
-      ),
-      body: _listBuilder(context),
-    );
-  }
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: Text("News"),
+        ),
+        body: _listBuilder(context),
+      );
 
   Widget _listBuilder(BuildContext context) {
     final viewModel = ScopedModel.of<StoriesScopedModel>(context).viewModel;
@@ -48,13 +46,11 @@ class StoriesPage extends StatelessWidget {
     );
   }
 
-  Widget _refreshIndicator(StoriesViewModel viewModel, Widget child) {
-    return RefreshIndicator(
-      child: child,
-      onRefresh: () async {
-        await viewModel.clearStories();
-        await viewModel.fetchTopIds();
-      },
-    );
-  }
+  Widget _refreshIndicator(StoriesViewModel viewModel, Widget child) => RefreshIndicator(
+        child: child,
+        onRefresh: () async {
+          await viewModel.clearStories();
+          await viewModel.fetchTopIds();
+        },
+      );
 }

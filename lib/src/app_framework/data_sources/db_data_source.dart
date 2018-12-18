@@ -59,17 +59,11 @@ class DbDataSourceImpl implements DbDataSource {
   }
 
   @override
-  Future<int> addItem(ItemModel item) {
-    return _database.insert(_ITEMS, rowMapFromItem(item));
-  }
+  Future<int> addItem(ItemModel item) => _database.insert(_ITEMS, rowMapFromItem(item));
 
   @override
-  Future<List<int>> fetchTopStoriesIds() {
-    return null;
-  }
+  Future<List<int>> fetchTopStoriesIds() => null;
 
   @override
-  Future<int> clear() {
-    return _database.delete(_ITEMS);
-  }
+  Future<int> clear() => _database.delete(_ITEMS);
 }

@@ -28,7 +28,5 @@ class NewsRepositoryImpl implements NewsRepository {
   }
 
   @override
-  clearStories() async {
-    await _dbDataSource.clear();
-  }
+  clearStories() async => await _dbDataSource.clear();
 }
