@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news/src/app_framework/design/metrics.dart';
 import 'package:news/src/app_framework/design/styles.dart';
 import 'package:news/src/app_framework/design/widgets.dart';
 import 'package:news/src/app_framework/views/item_detail/item_detail_scoped_model.dart';
@@ -58,7 +59,7 @@ class ItemDetailPage extends StatelessWidget {
       spacer(),
     ];
 
-    _addComments(item, commentItems, children);
+    _addComments(item, commentItems, children, 0);
 
     return ListView(children: children);
   }
@@ -70,12 +71,13 @@ class ItemDetailPage extends StatelessWidget {
     );
   }
 
-  void _addComments(ItemModel item, Map<int, Future<ItemModel>> commentItems, List<Widget> children) {
-    final commentList = item.kids.map((kidId) => _comment(kidId, commentItems)).toList();
+  void _addComments(ItemModel item, Map<int, Future<ItemModel>> commentItems, List<Widget> children, int depth) {
+    final newDepth = ++depth;
+    final commentList = item.kids.map((kidId) => _comment(kidId, commentItems, newDepth)).toList();
     children.addAll(commentList);
   }
 
-  Widget _comment(int itemId, Map<int, Future<ItemModel>> commentItems) {
+  Widget _comment(int itemId, Map<int, Future<ItemModel>> commentItems, int depth) {
     final itemFuture = commentItems[itemId];
 
     return FutureBuilder(
@@ -88,10 +90,15 @@ class ItemDetailPage extends StatelessWidget {
         final item = itemSnapshot.data;
 
         final children = <Widget>[
-          lrbPadding(Text(item.text)),
+          ListTile(
+            title: Text(item.deleted ? 'Deleted' : item.text),
+            subtitle: Text(item.by),
+            contentPadding: EdgeInsets.only(left: Metrics.layout.padding * depth, right: Metrics.layout.padding),
+          ),
+          Divider(),
         ];
 
-        _addComments(item, commentItems, children);
+        _addComments(item, commentItems, children, depth);
 
         return Column(
           children: children,

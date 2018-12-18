@@ -6,7 +6,7 @@ ItemModel itemFromJsonMap(Map<String, dynamic> jsonMap) {
   return ItemModel(
       id: jsonMap['id'],
       type: jsonMap['type'],
-      by: jsonMap['by'],
+      by: jsonMap['by'] ?? '',
       time: jsonMap['time'],
       text: jsonMap['text'] ?? '',
       dead: jsonMap['dead'] ?? false,
