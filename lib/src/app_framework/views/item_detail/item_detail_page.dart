@@ -55,11 +55,16 @@ class ItemDetailPage extends StatelessWidget {
   Widget _commentsList(ItemModel item, Map<int, Future<ItemModel>> commentItems) {
     final children = <Widget>[
       padding(_title(item)),
-      lrPadding(Text('Comments:')),
-      spacer(),
     ];
 
-    _addComments(item, commentItems, children, 0);
+    if (item.kids.length > 0) {
+      children.addAll([
+        lrPadding(Text('Comments:')),
+        spacer(),
+      ]);
+
+      _addComments(item, commentItems, children, 0);
+    }
 
     return ListView(children: children);
   }
