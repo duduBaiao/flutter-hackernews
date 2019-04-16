@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:news/src/domain/models/item_model.dart';
 import 'package:news/src/domain/repositories/news_repository.dart';
 

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_html_view/flutter_html_view.dart';
 import 'package:news/src/app_framework/design/metrics.dart';
@@ -97,7 +99,7 @@ class ItemDetailPage extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Padding(child: Text(item.by), padding: EdgeInsets.only(left: Metrics.layout.halfPadding)),
-                HtmlView(data: "<p>${item.deleted ? 'Deleted' : item.text}</p>", padding: EdgeInsets.zero),
+                HtmlView(data: "<p>${item.deleted ? 'Deleted' : item.text}</p>"),
               ],
               crossAxisAlignment: CrossAxisAlignment.start,
             ),
